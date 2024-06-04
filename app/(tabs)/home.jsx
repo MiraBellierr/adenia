@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <SafeAreaView className="flex-1 items-center justify-center bg-[#AFEEEE]">
         <View className="w-full h-full max-w-md bg-[#AFEEEE] rounded-lg overflow-hidden relative shadow-md">
-          <View className="bg-blue-900 w-full h-1/3 rounded-b-lg relative">
+          <View className="bg-blue-600 w-full h-1/3 rounded-b-lg relative">
             <TouchableOpacity
                 className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black items-center justify-center" onPress={handleProfileIconClick}>
               <Text className="text-white text-center">👤</Text>
@@ -66,7 +66,7 @@ const Home = () => {
           </View>
         <CustomButton
           title="Log Out"
-          containerStyles="w-full py-4 bg-gray-300 items-center"
+          containerStyles="w-full py-4 bg-red-600 items-center"
           textStyles="text-black"
           handlePress={logout}
         />

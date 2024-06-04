@@ -11,18 +11,20 @@ const MedicationScreen = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-   const fetchReminders = async () => {
-        try {
-        const fetchedAccount = await getAccount();
-        const fetchedReminders = await getUserReminders(fetchedAccount.$id);
-        setReminders(fetchedReminders);
-      } catch (err) {
-        setError(err.message || 'Failed to fetch reminders.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchReminders = async () => {
+    try {
+      const fetchedAccount = await getAccount();
+      const fetchedReminders = await getUserReminders(fetchedAccount.$id);
 
+      // Sort reminders by date
+      const sortedReminders = fetchedReminders.sort((a, b) => new Date(a.date) - new Date(b.date));
+      setReminders(sortedReminders);
+    } catch (err) {
+      setError(err.message || 'Failed to fetch reminders.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchReminders();
@@ -44,16 +46,16 @@ const MedicationScreen = () => {
           }
         }
       },
-      ]);
+    ]);
   };
 
   const goBack = () => {
-      router.back();
-    };
-    
-    const handleAddButton = () => {
-        router.navigate("/calendar");
-    }
+    router.back();
+  };
+
+  const handleAddButton = () => {
+    router.navigate("/calendar");
+  };
 
   if (loading) {
     return (
