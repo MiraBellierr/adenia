@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import tw from 'twrnc';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from "expo-router";
@@ -39,7 +38,6 @@ const CalendarScreen = () => {
       Alert.alert(`Appointment Scheduled: ${title}, ${selectedDate}`);
       router.navigate("/reminder");
 
-      // Schedule a notification if the reminder date is today
       const today = new Date().toISOString().split('T')[0];
       if (selectedDate === today) {
         await scheduleNotification(
@@ -60,24 +58,24 @@ const CalendarScreen = () => {
 
   if (loading) {
     return (
-      <SafeAreaView style={tw`flex-1 justify-center items-center bg-white`}>
+      <SafeAreaView className="flex-1 justify-center items-center bg-white">
         <ActivityIndicator size="large" color="#007AFF" />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#AFEEEE]`}>
-      <View style={tw`flex-row justify-between items-center p-4 bg-blue-600`}>
+    <SafeAreaView className="flex-1 bg-white">
+      <View className="flex-row justify-between items-center p-4 bg-blue-600">
         <TouchableOpacity onPress={goBack}>
           <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={tw`text-white text-lg font-semibold`}>Calendar</Text>
+        <Text className="text-white text-lg font-semibold">Calendar</Text>
         <TouchableOpacity onPress={navigateToReminders}>
           <Ionicons name="menu" size={24} color="white" />
         </TouchableOpacity>
       </View>
-      <View style={tw`flex-1 p-5`}>
+      <View className="flex-1 p-5">
         <Calendar
           onDayPress={onDayPress}
           enableSwipeMonths={true}
@@ -85,7 +83,7 @@ const CalendarScreen = () => {
             [selectedDate]: { selected: true, marked: true, selectedColor: '#007AFF' },
           }}
           theme={{
-            calendarBackground: '#AFEEEE',
+            calendarBackground: 'white',
             todayTextColor: '#007AFF',
             arrowColor: '#007AFF',
             textSectionTitleColor: 'black',
@@ -108,11 +106,11 @@ const CalendarScreen = () => {
             textDayHeaderFontSize: 16
           }}
         />
-        <View style={tw`mt-5 flex-1`}>
-          <Text style={tw`text-2xl font-bold mb-3 text-center text-black`}>Appointment</Text>
-          <Text style={tw`mt-4 text-lg text-gray-700`}>Appointment Title:</Text>
+        <View className="mt-5 flex-1">
+          <Text className="text-2xl font-bold mb-3 text-center text-black">Appointment</Text>
+          <Text className="mt-4 text-lg text-gray-700">Appointment Title:</Text>
           <TextInput
-            style={tw`h-12 px-3 border border-gray-700 rounded-lg mt-2 text-black`}
+            className="h-12 px-3 border border-gray-400 rounded-lg mt-2 text-black"
             placeholder="Enter title"
             placeholderTextColor="#808080"
             value={title}

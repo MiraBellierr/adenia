@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getUserReminders, getAccount, deleteReminder } from '../../lib/appwrite';
 import { router } from 'expo-router';
@@ -16,7 +15,6 @@ const MedicationScreen = () => {
       const fetchedAccount = await getAccount();
       const fetchedReminders = await getUserReminders(fetchedAccount.$id);
 
-      // Sort reminders by date
       const sortedReminders = fetchedReminders.sort((a, b) => new Date(a.date) - new Date(b.date));
       setReminders(sortedReminders);
     } catch (err) {
@@ -38,7 +36,7 @@ const MedicationScreen = () => {
           try {
             setLoading(true);
             await deleteReminder(id);
-            await fetchReminders(); // Refresh reminders after deletion
+            await fetchReminders();
             setLoading(false);
           } catch (err) {
             console.error('Failed to delete reminder:', err);
@@ -59,42 +57,44 @@ const MedicationScreen = () => {
 
   if (loading) {
     return (
-      <SafeAreaView style={tw`flex-1 justify-center items-center bg-[#AFEEEE]`}>
-        <ActivityIndicator size="large" color="purple" />
+      <SafeAreaView className="flex-1 justify-center items-center bg-white">
+        <ActivityIndicator size="large" color="#007AFF" />
       </SafeAreaView>
     );
   }
 
   if (error) {
     return (
-      <SafeAreaView style={tw`flex-1 justify-center items-center bg-[#AFEEEE]`}>
-        <Text style={tw`text-red-500`}>{error}</Text>
-        <TouchableOpacity onPress={goBack} style={tw`mt-4 p-2 bg-purple-600 rounded-full`}>
-          <Text style={tw`text-white`}>Go Back</Text>
+      <SafeAreaView className="flex-1 justify-center items-center bg-white">
+        <Text className="text-red-500">{error}</Text>
+        <TouchableOpacity onPress={goBack} className="mt-4 p-2 bg-purple-600 rounded-full">
+          <Text className="text-white">Go Back</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#AFEEEE]`}>
-      <View style={tw`bg-blue-600 p-6 items-center flex-row justify-between`}>
+    <SafeAreaView className="flex-1">
+      <View className="bg-blue-600 p-4 flex-row items-center justify-between">
         <TouchableOpacity onPress={goBack}>
           <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={tw`text-white text-lg`}>Appointments</Text>
+        <Text className="text-white text-lg font-semibold">Appointments</Text>
         <TouchableOpacity onPress={handleAddButton}>
           <Ionicons name="add" size={24} color="white" />
         </TouchableOpacity>
       </View>
-      <View style={tw`p-4`}>
+      <View className="flex-1 p-4">
         <ScrollView>
           {reminders.map((reminder) => (
-            <View key={reminder.$id} style={tw`mb-4`}>
-              <Text style={tw`text-gray-500 mb-2`}>{reminder.date}</Text>
-              <View style={tw`flex-row justify-between items-center p-2 border-b border-gray-300`}>
-                <View>
-                  <Text style={tw`text-black text-lg`}>{reminder.title}</Text>
+            <View key={reminder.$id} className="mb-4 bg-white p-4 rounded-lg shadow-md">
+              <Text className="text-gray-500 mb-1">{new Date(reminder.date).toDateString()}</Text>
+              <View className="flex-row justify-between items-center">
+                <View style={{ flex: 1, marginRight: 8 }}>
+                  <Text className="text-black text-lg" numberOfLines={2}>
+                    {reminder.title}
+                  </Text>
                 </View>
                 <TouchableOpacity onPress={() => handleDelete(reminder.$id)}>
                   <Ionicons name="trash" size={24} color="red" />

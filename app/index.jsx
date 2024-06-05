@@ -11,7 +11,6 @@ import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
 import { useGlobalContext } from "../context/GlobalProvider";
 
-// Set the notification handler
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
