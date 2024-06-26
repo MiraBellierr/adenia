@@ -36,6 +36,12 @@ const TabsLayout = () => {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="medication"
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
       <StatusBar backgroundColor="#161622" style="dark" />
     </>

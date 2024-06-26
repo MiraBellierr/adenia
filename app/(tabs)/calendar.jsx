@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -65,6 +65,7 @@ const CalendarScreen = () => {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-row justify-between items-center p-4 bg-blue-600">
         <TouchableOpacity onPress={goBack}>
@@ -124,7 +125,8 @@ const CalendarScreen = () => {
           />
         </View>
       </View>
-    </SafeAreaView>
+      </SafeAreaView>
+      </TouchableWithoutFeedback>
   );
 };
 

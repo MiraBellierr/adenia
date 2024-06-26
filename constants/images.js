@@ -10,6 +10,7 @@ import antidote2 from "../assets/images/antidote2.png";
 import profileIcon from "../assets/images/my-profile-icon.png";
 import calendar from "../assets/images/calendar-icon.png";
 import pill from "../assets/images/pill.png";
+import tick from "../assets/images/tick.png";
 
 export default {
   profile,
@@ -24,4 +25,5 @@ export default {
   profileIcon,
   calendar,
   pill,
+  tick,
 };
